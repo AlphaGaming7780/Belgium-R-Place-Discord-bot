@@ -1,0 +1,56 @@
+{
+    "token": "token",
+    "ArtValidationChannelId": 1133773196290707548,
+    "MessageTutoForArtSuggestionId": 1134493438587445349,
+    "botLogChannelId": 1134133249539571792,
+    "PlaceModoRole": 1135615620487073812,
+    "IsArtSuggestionBotEnable": false,
+    "ValidImageURLs": [
+        "https://media.discordapp.net/attachments/",
+        "https://cdn.discordapp.com/attachments/",
+        "https://i.imgur.com/"
+    ],
+    "ValidColour": {
+        "0": [
+            "#FF4500",
+            "#FFA800",
+            "#FFD635",
+            "#00A368",
+            "#3690EA",
+            "#B44AC0",
+            "#000000",
+            "#ffffff"
+        ],
+        "1": [
+            "#7EED56",
+            "#2450A4",
+            "#51E9F4",
+            "#811E9F",
+            "#FF99AA",
+            "#9C6926",
+            "#898D90",
+            "#D4D7D9"
+        ],
+        "2": [
+            "#BE0039",
+            "#00CC78",
+            "#00756F",
+            "#009EAA",
+            "#493AC1",
+            "#6A5CFF",
+            "#FF3881",
+            "#6D482F"
+        ],
+        "3": [
+            "#6D001A",
+            "#FFF8B8",
+            "#00CCC0",
+            "#94B3FF",
+            "#E4ABFF",
+            "#DE107F",
+            "#FFB470",
+            "#515252"
+        ]
+    },
+    "ValidColourLevel": 4
+}
