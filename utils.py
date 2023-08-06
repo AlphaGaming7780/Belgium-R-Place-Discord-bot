@@ -18,12 +18,13 @@ def loadConfig():
 		print("Loading config file")
 		with open('config.json', 'r') as openfile:
 			config = json.load(openfile)
+			return config
 			
 def rgb_to_hex(rgb: list):
-    return '#{:02x}{:02x}{:02x}'.format(rgb[0], rgb[1], rgb[2])
+	return '#{:02x}{:02x}{:02x}'.format(rgb[0], rgb[1], rgb[2])
 
 def is_the_same_author(component: BaseComponent, author: Member | User) -> bool:
-    return component.ctx.author.id == author.id
+	return component.ctx.author.id == author.id
 
 def art_suggestion_get_coord(message: Message):
 	try:
@@ -45,9 +46,9 @@ async def DisabledArtActionRow(message : Message, bool: bool):
 	await message.edit(components=components)
 	
 def is_int(s):
-    try: 
-        int(s)
-    except ValueError:
-        return False
-    else:
-        return True
+	try: 
+		int(s)
+	except ValueError:
+		return False
+	else:
+		return True

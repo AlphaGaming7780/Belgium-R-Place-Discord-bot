@@ -1,10 +1,14 @@
 {
     "token": "token",
-    "ArtValidationChannelId": 1133773196290707548,
+    "IsArtSubmissionBotEnable": true,
+    "ArtSubmissionChannelId": 1133773196290707548,
+    "ArtVotingChannelId": 1133773704803922020,
     "MessageTutoForArtSuggestionId": 1134493438587445349,
     "botLogChannelId": 1134133249539571792,
+    "PlaceRole": 1137786213860917298,
     "PlaceModoRole": 1135615620487073812,
-    "IsArtSuggestionBotEnable": false,
+    "ProjectQueueLenght": 1,
+    "MinArtNeededToMakeAVote": 4,
     "ValidImageURLs": [
         "https://media.discordapp.net/attachments/",
         "https://cdn.discordapp.com/attachments/",
