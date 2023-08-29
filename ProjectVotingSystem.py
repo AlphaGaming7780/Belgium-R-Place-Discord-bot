@@ -1,6 +1,8 @@
+import asyncio
 from interactions import *
+from GitManager import UploadAnArt
 
-from utils import config
+from utils import config, get_id_using_mention
 
 voteReactOption = [
 	":one:",
@@ -37,7 +39,7 @@ class ProjectVotingSystem(Extension):
 		# make an anoncement to tell poeple we go to the next art
 		# make a project queue
 		if(newvote):
-			await self.NewProjectVote(self, ctx)
+			await self.NewProjectVote(ctx)
 
 	
 	@project.subcommand(
@@ -89,7 +91,9 @@ class ProjectVotingSystem(Extension):
 		content = f"{ctx.bot.get_guild(ctx.guild_id).get_role(config['PlaceRole']).mention} A new art vote, plz vote for the art you want to make by reacting to this message."
 		embeds = []
 		for idx in range(config['MinArtNeededToMakeAVote']):
-			embed = ctx.bot.get_channel(config['ArtSubmissionChannelId']).get_post(artArrayForVote[idx][0]).initial_post.embeds[0]
+			post = ctx.bot.get_channel(config['ArtSubmissionChannelId']).get_post(artArrayForVote[idx][0])
+			await post.edit(locked=True, archived=True)
+			embed = post.initial_post.embeds[0]
 			embeds.append(
 				Embed(
 					title=embed.title,
@@ -105,6 +109,31 @@ class ProjectVotingSystem(Extension):
 		voteMessage = await ctx.bot.get_channel(config['ArtVotingChannelId']).send(content=content, embeds=embeds)
 		for idx in range(config['MinArtNeededToMakeAVote']):
 			await voteMessage.add_reaction(voteReactOption[idx])
+
+		await asyncio.sleep(10) # 10 min <- maybe change that. FOR NOW 10 SEC
+
+		#TO-DO make the annonce in the announce chanel
+		#self.bot.get_channel(config[""]).send()
+
+		reactions = voteMessage.reactions
+		idx = 0
+		mostVotedArtIdx = 0
+		mostVotedArtCount = 0
+		for react in reactions:
+			if mostVotedArtCount < react.count:
+				mostVotedArtCount = react.count
+				mostVotedArtIdx = idx
+			idx += 1
+		
+		for idx in range(config['MinArtNeededToMakeAVote']):
+			if idx != mostVotedArtIdx:
+				post = ctx.bot.get_channel(config['ArtSubmissionChannelId']).get_post(artArrayForVote[idx][0])
+				await post.edit(locked=False, archived=False)
+			else:
+				winingArtMessage = ctx.bot.get_channel(config['ArtSubmissionChannelId']).get_post(artArrayForVote[idx][0]).initial_post
+
+		UploadAnArt(message=winingArtMessage, author=self.bot.get_member(get_id_using_mention(winingArtMessage.embeds[0].fields[0].value), ctx.guild_id).global_name)
+
 
 			
 def setup(bot):

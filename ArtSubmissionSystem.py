@@ -65,27 +65,13 @@ class ArtSubmissionSystem(Extension):
 			],
 		)
 
-		# download_image(modal_ctx.responses["ArtSubmitionBigImageLink"], modal_ctx.author, modal_ctx.responses["ArtSubmitionTitle"], "big")
-		# download_image(modal_ctx.responses["ArtSubmitionScaledImagelink"], modal_ctx.author, modal_ctx.responses["ArtSubmitionTitle"], "scaled")
-		post = await self.bot.get_channel(config["ArtSubmissionChannelId"]).create_post(name = modal_ctx.responses["ArtSubmitionTitle"], content=None, embed = ArtSuggestionEmbed) #content = f"{modal_ctx.author.mention} Your art is not valid for voting. First add the missing Information to the art submtion by clicking the button below.\nCalculate it using the [Charity](https://charity.pxls.space/) website"
+		post = await self.bot.get_channel(config["ArtSubmissionChannelId"]).create_post(name = modal_ctx.responses["ArtSubmitionTitle"], content=None, embed = ArtSuggestionEmbed)
 		
 		postEmbed = post.initial_post.embeds[0]
-		postEmbed.url = "https://discord.com/channels/{ctx.guild_id}/{post.id}"
+		postEmbed.url = f"https://discord.com/channels/{ctx.guild_id}/{post.id}"
 		await post.initial_post.edit(embed=postEmbed)
 
 		await modal_ctx.send(content = f"Your suggestion is post here : https://discord.com/channels/{ctx.guild_id}/{post.id}", ephemeral=True)
-
-		# data={  
-		# 	"authorId":modal_ctx.author.id,
-		# 	"name": modal_ctx.responses["ArtSubmitionTitle"],
-		# 	"description": modal_ctx.responses["ArtSubmitionDesc"],
-		# 	"linkBigImage": modal_ctx.responses["ArtSubmitionBigImageLink"],
-		# 	"linkScaledImage":modal_ctx.responses["ArtSubmitionScaledImagelink"],
-		# 	"X":None,
-		# 	"Y": None
-		# }
-
-		# saveData(f'./Images/{modal_ctx.author}/{modal_ctx.responses["ArtSubmitionTitle"]}', data)
 
 		ArtSuggestionActionRow = ActionRow(
 			Button(

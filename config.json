@@ -1,5 +1,6 @@
 {
     "token": "token",
+    "TemplateGithubRepoName": "Belgium-RPlace-Template-2023",
     "IsArtSubmissionBotEnable": true,
     "ArtSubmissionChannelId": 1133773196290707548,
     "ArtVotingChannelId": 1133773704803922020,

@@ -1,12 +1,10 @@
-import asyncio
 import json
-import shutil
 from interactions import *
-import requests
 from pathlib import Path
 
-from TOKEN import TOKEN
-from utils import loadConfig, saveConfig, config
+from TOKEN import DISCORD_TOKEN
+from utils import get_id_using_mention, loadConfig, saveConfig, config
+from GitManager import GitSetup, UploadAnArt
 
 ######################################################################################################################################################
 ####################### MISC related code
@@ -71,20 +69,17 @@ async def checkBotConfig(ctx: SlashContext = None) -> bool:
 
 	return IsError or ArtSubmissionSystemError
 
-
-def download_image(url, author, name, scale):
-	r = requests.get(url, stream=True)
-	if r.status_code == 200:
-		Path(f'./Images/{author}/{name}').mkdir(parents=True, exist_ok=True)
-		with open(f'./Images/{author}/{name}/{scale}.png', 'wb') as f:
-			r.raw.decode_content = True
-			shutil.copyfileobj(r.raw, f)
-
 @listen()
 async def on_startup():
-	print("Bot is ready!")
+
+	GitSetup()
 
 	await checkBotConfig()
+	message = await bot.get_guild(1133765650163191942).get_channel(1133773196290707548).get_post(1137491792175046737).fetch_message(1137491792175046737)
+	author = await bot.fetch_member(444624282165968896, 1133765650163191942)
+	#UploadAnArt(message=message, author=author.username)
+
+	print("Bot is ready!")
 
 ######################################################################################################################################################
 ####################### BOT commande
@@ -300,4 +295,4 @@ bot.load_extension("ProjectVotingSystem")
 ####################### Code start
 ######################################################################################################################################################
 
-bot.start(TOKEN) #config["token"]
+bot.start(DISCORD_TOKEN) #config["token"]

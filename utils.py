@@ -1,6 +1,9 @@
 import json
+import shutil
 
 from interactions import *
+import requests
+from pathlib import Path
 
 config={  
 	"token":""
@@ -52,3 +55,17 @@ def is_int(s):
 		return False
 	else:
 		return True
+
+def get_id_using_mention(a:str):
+    a = a.replace("<","")
+    a = a.replace(">","")
+    a = a.replace("@","")
+    return a
+
+def download_image(url, author, name, scale):
+	r = requests.get(url, stream=True)
+	if r.status_code == 200:
+		Path(f'./Images/{author}/{name}').mkdir(parents=True, exist_ok=True)
+		with open(f'./Images/{author}/{name}/{scale}.png', 'wb') as f:
+			r.raw.decode_content = True
+			shutil.copyfileobj(r.raw, f)
